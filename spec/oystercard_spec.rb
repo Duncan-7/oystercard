@@ -26,4 +26,29 @@ describe Oystercard do
     end
   end
 
+  describe "#touch_in" do
+    it "sets the user to in_journey" do
+      subject.touch_in
+      expect(subject).to be_in_journey
+    end
+  end
+  
+  describe "#touch_out" do
+    it "sets the user to not be in_journey" do
+      subject.touch_in
+      subject.touch_out
+      expect(subject).to_not be_in_journey
+    end
+  end
+
+  describe "#in_journey?" do
+    it "returns true when user is in a journey" do
+      subject.touch_in
+      expect(subject).to be_in_journey
+    end
+
+    it "returns false when user is not in a journey" do
+      expect(subject).not_to be_in_journey
+    end
+  end
 end
