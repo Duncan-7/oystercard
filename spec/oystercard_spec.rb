@@ -51,9 +51,12 @@ describe Oystercard do
   end
 
   describe "#touch_out" do
-    it "sets the user to not be in_journey" do
+    before(:each) do
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
+    end
+
+    it "sets the user to not be in_journey" do
       expect(subject).to_not be_in_journey
     end
 
@@ -62,14 +65,10 @@ describe Oystercard do
     end
 
     it "removed the entry_station when touching_out" do
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
       expect(subject.entry_station).to eq nil
     end
 
     it "touching in and out creates one journey" do
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
       expect(subject.journeys).to eq [{entry: entry_station, exit: exit_station}]
     end
   end
