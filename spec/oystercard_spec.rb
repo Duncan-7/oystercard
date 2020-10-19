@@ -69,7 +69,7 @@ describe Oystercard do
     end
 
     it "touching in and out creates one journey" do
-      expect(subject.journeys).to eq [{entry: entry_station, exit: exit_station}]
+      expect(subject.journeys[0]).to be_instance_of Journey
     end
   end
 

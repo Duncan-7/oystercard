@@ -1,3 +1,5 @@
+require_relative 'journey'
+
 class Oystercard
   attr_reader :balance, :entry_station, :journeys
 
@@ -26,7 +28,7 @@ class Oystercard
 
   def touch_out(exit_station)
     @balance -= MINIMUM_FARE
-    @journeys << {entry: @entry_station, exit: exit_station}
+    @journeys << Journey.new(@entry_station, exit_station)
     @entry_station = nil
   end
 
