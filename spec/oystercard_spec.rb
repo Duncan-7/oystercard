@@ -61,6 +61,7 @@ describe Oystercard do
     end
 
     it "deducts the minimum fare from a users card at the end of a journey" do
+      subject.touch_in(entry_station)
       expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-1)
     end
 
