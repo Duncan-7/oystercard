@@ -3,10 +3,15 @@ require 'oystercard'
 describe Oystercard do
   let (:subject) {Oystercard.new(30)}
   let (:entry_station) { double :entry_station }
+  let (:exit_station) { double :exit_station }
 
   describe 'creating a new oystercard' do
     it "has a balance of 0 by default" do
       expect(Oystercard.new.balance).to eq(0)
+    end
+
+    it "has a empty list of journeys by defualt" do
+      expect(subject.journeys).to eq []
     end
   end
 
@@ -48,18 +53,24 @@ describe Oystercard do
   describe "#touch_out" do
     it "sets the user to not be in_journey" do
       subject.touch_in(entry_station)
-      subject.touch_out
+      subject.touch_out(exit_station)
       expect(subject).to_not be_in_journey
     end
 
     it "deducts the minimum fare from a users card at the end of a journey" do
-      expect { subject.touch_out }.to change { subject.balance }.by(-1)
+      expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-1)
     end
 
     it "removed the entry_station when touching_out" do
       subject.touch_in(entry_station)
-      subject.touch_out
+      subject.touch_out(exit_station)
       expect(subject.entry_station).to eq nil
+    end
+
+    it "touching in and out creates one journey" do
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).to eq [{entry: entry_station, exit: exit_station}]
     end
   end
 
