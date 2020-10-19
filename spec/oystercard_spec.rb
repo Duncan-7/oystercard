@@ -14,9 +14,16 @@ describe Oystercard do
     end
 
     it "raises an error when the maximum amount is exceeded" do
-      expect{ subject.top_up(91) }.to raise_error("Maximum limit exceeded")
+      expect{ subject.top_up(91) }.to raise_error("Maximum limit of £90 exceeded")
     end
   end
 
+  describe "deducting money from our oystercard" do
+    let (:subject) {Oystercard.new(30)}
+    it 'deducts the given value from the oystercard' do
+      subject.deduct(10)
+      expect(subject.balance).to eq 20
+    end
+  end
 
 end
