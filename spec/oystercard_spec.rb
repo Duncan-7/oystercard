@@ -4,6 +4,7 @@ describe Oystercard do
   let (:subject) {Oystercard.new(30)}
   let (:entry_station) { double :entry_station }
   let (:exit_station) { double :exit_station }
+  let (:journey_log) { double :journey_log }
 
   describe 'creating a new oystercard' do
     it "has a balance of 0 by default" do
@@ -11,7 +12,7 @@ describe Oystercard do
     end
 
     it "has a empty list of journeys by defualt" do
-      expect(subject.journeys).to eq []
+      expect(subject.journeys).to be_instance_of JourneyLog
     end
   end
 
@@ -70,7 +71,7 @@ describe Oystercard do
     end
 
     it "touching in and out creates one journey" do
-      expect(subject.journeys[0]).to be_instance_of Journey
+      expect(subject.journeys.journeys[0]).to be_instance_of Journey
     end
   end
 
