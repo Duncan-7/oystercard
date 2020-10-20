@@ -20,7 +20,7 @@ class Oystercard
 
   def touch_in(entry_station)
     raise "Insufficient funds" if @balance < Journey.minimum_fare
-    @journeys.start
+    @journeys.start(entry_station)
     @entry_station = entry_station
   end
 
@@ -34,8 +34,9 @@ class Oystercard
   end
 
   def end_journey(exit_station)
-    journey = @journeys.finish
-    journey.finish
+    journey = @journeys.present_journey
+    @journeys.finish(exit_station)
+    journey.calculate_fare
     deduct(journey.fare)
   end
 

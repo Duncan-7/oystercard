@@ -17,10 +17,12 @@ class JourneyLog
     journey = current_journey
     journey.exit_station = exit_station
     @present_journey = journey
+    complete_journey
   end
 
   def complete_journey
     @journeys << @present_journey
+    @present_journey.calculate_fare
     @present_journey = nil
   end
 
