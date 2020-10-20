@@ -40,7 +40,6 @@ class Oystercard
     deduct(journey.fare)
   end
 
-
   private
   def deduct(amount)
     @balance -= amount

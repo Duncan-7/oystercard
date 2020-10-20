@@ -13,7 +13,7 @@ class JourneyLog
     @present_journey = Journey.new(entry_station)
   end
 
-  def finish(exit_station)
+  def finish(exit_station = nil)
     journey = current_journey
     journey.exit_station = exit_station
     @present_journey = journey
